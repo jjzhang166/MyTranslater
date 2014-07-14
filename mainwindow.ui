@@ -32,10 +32,10 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QPlainTextEdit" name="plainTextEdit"/>
+       <widget class="QPlainTextEdit" name="textA"/>
       </item>
       <item row="4" column="1">
-       <widget class="QPlainTextEdit" name="plainTextEdit_2"/>
+       <widget class="QPlainTextEdit" name="textB"/>
       </item>
       <item row="1" column="1">
        <spacer name="horizontalSpacer_3">
@@ -68,39 +68,19 @@
           </property>
          </spacer>
         </item>
-        <item>
-         <widget class="QPushButton" name="pushButton">
-          <property name="text">
-           <string>Translate</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
        </layout>
       </item>
       <item row="2" column="2">
-       <widget class="QLabel" name="label_3">
+       <widget class="QPushButton" name="btnTranslateAB">
         <property name="text">
-         <string>Chinese</string>
+         <string>Translate</string>
         </property>
        </widget>
       </item>
       <item row="4" column="2">
-       <widget class="QLabel" name="label_4">
+       <widget class="QPushButton" name="btnTranslateBA">
         <property name="text">
-         <string>English</string>
+         <string>Translate</string>
         </property>
        </widget>
       </item>

@@ -4,18 +4,21 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = MyTranslate
 TEMPLATE = app
+CONFIG += c++11
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    cbaidutranslater.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    cbaidutranslater.h
 
 FORMS    += mainwindow.ui
 
