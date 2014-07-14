@@ -22,5 +22,11 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
+TRANSLATIONS += zh.ts
+
 OTHER_FILES += \
-    .gitignore
+    .gitignore \
+    zh.ts
+
+RESOURCES += \
+    resource.qrc
