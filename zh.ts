@@ -22,25 +22,53 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="23"/>
-        <source>English</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="30"/>
         <source>Chinese</source>
-        <translation>中文</translation>
+        <translation type="vanished">中文</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="76"/>
-        <location filename="mainwindow.ui" line="83"/>
+        <location filename="mainwindow.ui" line="82"/>
         <source>Translate</source>
         <translation>翻译</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="13"/>
+        <location filename="mainwindow.cpp" line="18"/>
         <source>MyTranslater developed with Qt</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="69"/>
+        <source>Auto detection</source>
+        <translation>自动检测</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="70"/>
+        <source>English -&gt; Chinese</source>
+        <translation>英 -&gt; 汉</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="71"/>
+        <source>Chinese -&gt; English</source>
+        <translation>汉 -&gt; 英</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="72"/>
+        <source>Chinese -&gt; Japanese</source>
+        <translation>汉 -&gt; 日</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="73"/>
+        <source>Chinese -&gt; Korean</source>
+        <translation>汉 -&gt; 韩</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="74"/>
+        <source>BaiHuaWen-&gt; WenYanWen</source>
+        <translation>白话文 -&gt; 文言文</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="75"/>
+        <source>WenYanWen -&gt; BaiHuaWen</source>
+        <translation>文言文 -&gt; 白话文</translation>
     </message>
 </context>
 </TS>

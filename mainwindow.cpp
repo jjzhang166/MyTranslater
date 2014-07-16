@@ -1,4 +1,5 @@
 #include <QtCore>
+#include <QComboBox>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "cbaidutranslater.h"
@@ -6,9 +7,13 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_baiduTranslater(new CBaiduTranslater)
+    m_baiduTranslater(new CBaiduTranslater),
+    m_from("auto"), m_to("auto")
 {
     ui->setupUi(this);
+
+    /* initialize translation direction */
+    initComboBox(ui->comboBox);
 
     setWindowTitle(tr("MyTranslater developed with Qt"));
 
@@ -20,14 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
         // show wait animation.
         ui->plainTextEdit_dst->clear();
         QString srcText = ui->plainTextEdit_src->toPlainText();
-        m_baiduTranslater->translate(srcText, "auto", "auto");      // emit signal "finished" when finish the translation.
+        m_baiduTranslater->translate(srcText, m_from, m_to);      // emit signal "finished" when finish the translation.
     });
-
-//    /* English to Chinese  */
-//    connect(ui->btnTranslate, &QPushButton::clicked, [=]{
-//        QString srcText = ui->plainTextEdit_dst->toPlainText();
-//        m_baiduTranslater->translate(srcText, "auto", "auto");      // emit signal "finished" when finish the translation.
-//    });
 
     connect(m_baiduTranslater, &CBaiduTranslater::finished, this, &MainWindow::showResult);
 }
@@ -51,4 +50,34 @@ void MainWindow::showResult(QVector<QPair<QString, QString> >vector)
     }
 
     ui->plainTextEdit_dst->setPlainText(destText);
+}
+
+/*
+中文 	zh 	    英语 	en
+日语 	jp 	    韩语 	kor
+西班牙语 	spa 	    法语 	fra
+泰语 	th 	    阿拉伯语 	ara
+俄罗斯语 	ru 	    葡萄牙语 	pt
+粤语 	yue 	    文言文 	wyw
+白话文 	zh 	    自动检测 	auto
+*/
+void MainWindow::initComboBox(QComboBox *comboBox)
+{
+    if (comboBox == nullptr)
+        return;
+
+    comboBox->addItem(tr("Auto detection"), QStringList() << "auto" << "auto");
+    comboBox->addItem(tr("English -> Chinese"), QStringList() << "en" << "zh");
+    comboBox->addItem(tr("Chinese -> English"), QStringList() << "zh" << "en");
+    comboBox->addItem(tr("Chinese -> Japanese"), QStringList() << "zh" << "jp");
+    comboBox->addItem(tr("Chinese -> Korean"), QStringList() << "zh" << "kor");
+    comboBox->addItem(tr("BaiHuaWen-> WenYanWen"), QStringList() << "zh" << "wyw");
+    comboBox->addItem(tr("WenYanWen -> BaiHuaWen"), QStringList() << "wyw" << "zh");
+
+    auto currentIndexChanged = static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged);
+    connect(comboBox, currentIndexChanged, [=](int index){
+        QStringList strList = comboBox->itemData(index, Qt::UserRole).toStringList();
+        m_from = strList[0];
+        m_to = strList[1];
+    });
 }

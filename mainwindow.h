@@ -6,6 +6,7 @@
 #include <QMap>
 #include <QMainWindow>
 class CBaiduTranslater;
+class QComboBox;
 
 namespace Ui {
 class MainWindow;
@@ -24,8 +25,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
     CBaiduTranslater *m_baiduTranslater;
+    QString m_from, m_to;       // translate direction
+
+    void initComboBox(QComboBox *comboBox);
 };
 
 #endif // MAINWINDOW_H
