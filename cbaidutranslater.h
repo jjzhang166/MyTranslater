@@ -30,7 +30,7 @@ public:
 
     void translate();
     void translate(const QString &src);
-    void translate(const QString &src, const QString from = "zh", const QString to = "en");
+    void translate(const QString &src, const QString from, const QString to);
 
 signals:
     void error(QMap<QString, QString>);

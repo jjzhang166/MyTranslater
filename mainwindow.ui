@@ -17,33 +17,17 @@
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>English</string>
-        </property>
-        <property name="buddy">
-         <cstring>textB</cstring>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Chinese</string>
-        </property>
-        <property name="buddy">
-         <cstring>textA</cstring>
+       <widget class="QPlainTextEdit" name="plainTextEdit_src"/>
+      </item>
+      <item row="4" column="0">
+       <widget class="QPlainTextEdit" name="plainTextEdit_dst">
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QPlainTextEdit" name="textA"/>
-      </item>
-      <item row="4" column="1">
-       <widget class="QPlainTextEdit" name="textB"/>
-      </item>
-      <item row="1" column="1">
+      <item row="1" column="0">
        <spacer name="horizontalSpacer_3">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -56,15 +40,56 @@
         </property>
        </spacer>
       </item>
-      <item row="0" column="1">
+      <item row="0" column="0">
        <layout class="QVBoxLayout" name="verticalLayout"/>
       </item>
-      <item row="3" column="1">
+      <item row="3" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>12</number>
+        </property>
         <item>
-         <spacer name="horizontalSpacer_2">
+         <widget class="QComboBox" name="comboBox">
+          <property name="minimumSize">
+           <size>
+            <width>150</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnTranslate">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Translate</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_4">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -75,20 +100,6 @@
          </spacer>
         </item>
        </layout>
-      </item>
-      <item row="2" column="2">
-       <widget class="QPushButton" name="btnTranslateAB">
-        <property name="text">
-         <string>Translate</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2">
-       <widget class="QPushButton" name="btnTranslateBA">
-        <property name="text">
-         <string>Translate</string>
-        </property>
-       </widget>
       </item>
      </layout>
     </item>
@@ -108,10 +119,8 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>textA</tabstop>
-  <tabstop>btnTranslateAB</tabstop>
-  <tabstop>textB</tabstop>
-  <tabstop>btnTranslateBA</tabstop>
+  <tabstop>plainTextEdit_src</tabstop>
+  <tabstop>plainTextEdit_dst</tabstop>
  </tabstops>
  <resources/>
  <connections/>
