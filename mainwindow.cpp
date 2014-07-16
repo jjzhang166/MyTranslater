@@ -23,6 +23,11 @@ MainWindow::MainWindow(QWidget *parent) :
     /* translate */
     connect(ui->btnTranslate, SIGNAL(clicked()), this, SLOT(translate()));
     connect(m_baiduTranslater, &CBaiduTranslater::finished, this, &MainWindow::showResult);
+
+    /* initialize waiting label */
+//    ui->label_statusPicture->hide();
+    ui->label_translationStatus->setText(tr("Translating..."));
+//    ui->label_translationStatus->hide();
 }
 
 MainWindow::~MainWindow()
@@ -32,11 +37,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::translate()
 {
+    if (ui->plainTextEdit_src->toPlainText().isEmpty())
+        return;
+
     ui->plainTextEdit_dst->clear();
     QString srcText = ui->plainTextEdit_src->toPlainText();
     translate(srcText, m_from, m_to);
 
     // show waiting animation...
+    ui->label_statusPicture->show();
+    ui->label_translationStatus->show();
 }
 
 void MainWindow::translate(const QString &srcText, const QString &from, const QString &to)
@@ -60,6 +70,8 @@ void MainWindow::showResult(QVector<QPair<QString, QString> >vector)
     ui->plainTextEdit_dst->setPlainText(destText);
 
     // hide waiting animation...
+    ui->label_statusPicture->hide();
+    ui->label_translationStatus->hide();
 }
 
 /*

@@ -99,6 +99,20 @@
           </property>
          </spacer>
         </item>
+        <item>
+         <widget class="QLabel" name="label_statusPicture">
+          <property name="text">
+           <string>     </string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_translationStatus">
+          <property name="text">
+           <string>     </string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>

@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>zh.qm</file>
+        <file>resource/zh.qm</file>
     </qresource>
 </RCC>

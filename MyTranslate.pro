@@ -26,7 +26,8 @@ TRANSLATIONS += zh.ts
 
 OTHER_FILES += \
     .gitignore \
-    zh.ts
+    zh.ts \
+    style.css
 
 RESOURCES += \
     resource.qrc
