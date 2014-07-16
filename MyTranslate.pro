@@ -29,5 +29,10 @@ OTHER_FILES += \
     zh.ts \
     style.css
 
-RESOURCES += \
-    resource.qrc
+RESOURCES +=
+
+OBJECTS_DIR += $$OUT_PWD/tmp
+MOC_DIR     += $$OUT_PWD/tmp
+UI_DIR      += $$OUT_PWD/tmp
+RCC_DIR     += $$OUT_PWD/tmp
+DESTDIR     += $$OUT_PWD

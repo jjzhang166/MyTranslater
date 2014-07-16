@@ -78,6 +78,9 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
           <property name="text">
            <string>Translate</string>
           </property>
@@ -102,14 +105,14 @@
         <item>
          <widget class="QLabel" name="label_statusPicture">
           <property name="text">
-           <string>     </string>
+           <string/>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="label_translationStatus">
           <property name="text">
-           <string>     </string>
+           <string/>
           </property>
          </widget>
         </item>
