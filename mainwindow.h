@@ -21,6 +21,8 @@ public:
     ~MainWindow();
 
 private slots:
+    void translate();
+    void translate(const QString &srcText, const QString &from, const QString &to);
     void showResult(QVector<QPair<QString, QString> > vector);
 
 private:

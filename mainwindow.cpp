@@ -21,19 +21,27 @@ MainWindow::MainWindow(QWidget *parent) :
     m_baiduTranslater->setAPI_Key("MMy04nuApNDEaIQGSV6XncBv");
 
     /* translate */
-    connect(ui->btnTranslate, &QPushButton::clicked, [=]{
-        // show wait animation.
-        ui->plainTextEdit_dst->clear();
-        QString srcText = ui->plainTextEdit_src->toPlainText();
-        m_baiduTranslater->translate(srcText, m_from, m_to);      // emit signal "finished" when finish the translation.
-    });
-
+    connect(ui->btnTranslate, SIGNAL(clicked()), this, SLOT(translate()));
     connect(m_baiduTranslater, &CBaiduTranslater::finished, this, &MainWindow::showResult);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::translate()
+{
+    ui->plainTextEdit_dst->clear();
+    QString srcText = ui->plainTextEdit_src->toPlainText();
+    translate(srcText, m_from, m_to);
+
+    // show waiting animation...
+}
+
+void MainWindow::translate(const QString &srcText, const QString &from, const QString &to)
+{
+    m_baiduTranslater->translate(srcText, from, to);
 }
 
 void MainWindow::showResult(QVector<QPair<QString, QString> >vector)
@@ -50,6 +58,8 @@ void MainWindow::showResult(QVector<QPair<QString, QString> >vector)
     }
 
     ui->plainTextEdit_dst->setPlainText(destText);
+
+    // hide waiting animation...
 }
 
 /*
