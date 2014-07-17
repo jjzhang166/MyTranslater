@@ -26,8 +26,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* initialize waiting label */
 //    ui->label_statusPicture->hide();
+    ui->label_statusPicture->setFileName(QApplication::applicationDirPath() + QDir::separator() + "style/images/please-wait.gif");
+    ui->label_statusPicture->hide();
     ui->label_translationStatus->setText(tr("Translating..."));
-//    ui->label_translationStatus->hide();
+    ui->label_translationStatus->hide();
 }
 
 MainWindow::~MainWindow()
@@ -46,6 +48,7 @@ void MainWindow::translate()
 
     // show waiting animation...
     ui->label_statusPicture->show();
+    ui->label_statusPicture->play();
     ui->label_translationStatus->show();
 }
 
@@ -70,6 +73,7 @@ void MainWindow::showResult(QVector<QPair<QString, QString> >vector)
     ui->plainTextEdit_dst->setPlainText(destText);
 
     // hide waiting animation...
+    ui->label_statusPicture->stop();
     ui->label_statusPicture->hide();
     ui->label_translationStatus->hide();
 }

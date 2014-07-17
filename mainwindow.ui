@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>614</width>
-    <height>363</height>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
         <property name="sizeHint" stdset="0">
          <size>
           <width>40</width>
-          <height>20</height>
+          <height>40</height>
          </size>
         </property>
        </spacer>
@@ -103,7 +103,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="label_statusPicture">
+         <widget class="QGifLabel" name="label_statusPicture">
           <property name="text">
            <string/>
           </property>
@@ -135,6 +135,13 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QGifLabel</class>
+   <extends>QLabel</extends>
+   <header>qgiflabel.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>plainTextEdit_src</tabstop>
   <tabstop>plainTextEdit_dst</tabstop>

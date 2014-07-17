@@ -12,24 +12,25 @@ TARGET = MyTranslate
 TEMPLATE = app
 CONFIG += c++11
 
-
 SOURCES += main.cpp\
         mainwindow.cpp \
-    cbaidutranslater.cpp
+    cbaidutranslater.cpp \
+    controls/qgiflabel.cpp
 
 HEADERS  += mainwindow.h \
-    cbaidutranslater.h
+    cbaidutranslater.h \
+    controls/qgiflabel.h
 
 FORMS    += mainwindow.ui
 
-TRANSLATIONS += zh.ts
+TRANSLATIONS += $$PWD/language/zh.ts
 
 OTHER_FILES += \
-    .gitignore \
-    zh.ts \
-    style.css
+    .gitignore
 
 RESOURCES +=
+
+INCLUDEPATH += $$PWD $$PWD/controls
 
 OBJECTS_DIR += $$OUT_PWD/tmp
 MOC_DIR     += $$OUT_PWD/tmp
