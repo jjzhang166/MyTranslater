@@ -37,12 +37,6 @@ QComboBox QAbstractItemView {
     selection-background-color: red;
 }
 
-/* QMainWindow */
-QMainWindow{
-    background-image:url($AppDir/style/images/aio.png);
-    background-position:center;
-}
-
 
 /* QScrollBar */
  QScrollBar:vertical {
@@ -107,4 +101,24 @@ QMainWindow{
      background:none;
  }
 
+/* QPlainTextEdit */
+QPlainTextEdit{
+    border:1px solid white;
+}
+QPlainTextEdit:hover{
+    border-color:#99CCFF;
+}
+
+/* QMainWindow */
+QMainWindow{
+    background-image:url($AppDir/style/images/aio.png);
+    background-position:center;
+}
+
+QStatusBar{
+    background-image:url($AppDir/style/images/aio.png);
+    background-position:top center;
+}
+QStatusBar QLabel{
+}
 
