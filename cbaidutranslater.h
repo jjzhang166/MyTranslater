@@ -6,6 +6,7 @@
 #include <QMap>
 #include <QVector>
 #include <QPair>
+#include "entities/cbaidutranslateresult.h"
 class QNetworkAccessManager;
 
 class CBaiduTranslater: public QObject
@@ -33,8 +34,7 @@ public:
     void translate(const QString &src, const QString from, const QString to);
 
 signals:
-    void error(QMap<QString, QString>);
-    void finished(QVector<QPair<QString, QString> >);
+    void finished(CBaiduTranslateResult);
 
 private:
     QString m_url;
@@ -46,7 +46,7 @@ private:
 
     QNetworkAccessManager *m_networkAccessManager;
 
-    QVector<QPair<QString, QString> > decodeJsonData(const QByteArray &json, bool &ok);
+    CBaiduTranslateResult decodeJsonData(const QByteArray &json);
 };
 
 /*

@@ -1,5 +1,6 @@
 #include <QtCore>
 #include <QComboBox>
+#include <QToolButton>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "cbaidutranslater.h"
@@ -12,10 +13,28 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    /* Stay on top tool button */
+    m_showTop = new QToolButton(this);
+    m_showTop->setToolTip(tr("stay on top"));
+    connect(m_showTop, &QToolButton::clicked, this, &MainWindow::toggleStayOnTop);
+    ui->statusBar->addWidget(m_showTop, 0);
+
+    /* Update style tool button */
+    m_updateStyle = new QToolButton(this);
+    m_updateStyle->setToolTip(tr("update style"));
+    ui->statusBar->addWidget(m_updateStyle, 0);
+    connect(m_updateStyle, &QToolButton::clicked, this, &MainWindow::updateStyle);
+
+    /* status display label */
+    m_statusInfo = new QLabel(this);
+    m_statusInfo->setText(tr("The first time query may be slow"));
+    ui->statusBar->addWidget(m_statusInfo, 0);
+
+
     /* initialize translation direction */
     initComboBox(ui->comboBox);
 
-    setWindowTitle(tr("MyTranslater developed with Qt"));
+    setWindowTitle(tr("MyTranslater"));
 
     // Set baidu translate seveice API key
     m_baiduTranslater->setAPI_Key("MMy04nuApNDEaIQGSV6XncBv");
@@ -26,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* initialize waiting label */
 //    ui->label_statusPicture->hide();
-    ui->label_statusPicture->setFileName(QApplication::applicationDirPath() + QDir::separator() + "style/images/please-wait.gif");
+    ui->label_statusPicture->setFileName(":/res/loading.gif");
     ui->label_statusPicture->hide();
     ui->label_translationStatus->setText(tr("Translating..."));
     ui->label_translationStatus->hide();
@@ -57,13 +76,30 @@ void MainWindow::translate(const QString &srcText, const QString &from, const QS
     m_baiduTranslater->translate(srcText, from, to);
 }
 
-void MainWindow::showResult(QVector<QPair<QString, QString> >vector)
+void MainWindow::showResult(CBaiduTranslateResult result)
 {
     QString destText;
 
-    QVectorIterator<QPair<QString, QString> > iter(vector);
-    QString from = iter.next().second;
-    QString to = iter.next().second;
+    if (result.m_error_code != CBaiduTranslateResult::None)
+    {
+        QString error_msg = "<font color='red'>%1</font>";
+        switch (result.m_error_code) {
+        case CBaiduTranslateResult::Timeout:
+            m_statusInfo->setText(error_msg.arg(tr("time out")));
+            break;
+        case CBaiduTranslateResult::SystemError:
+            m_statusInfo->setText(error_msg.arg(tr("system error")));
+            break;
+        case CBaiduTranslateResult::UnauthorizedUser:
+            m_statusInfo->setText(error_msg.arg(tr("unauthorized user")));
+            break;
+        default:
+            break;
+        }
+        return;
+    }
+
+    QVectorIterator<QPair<QString, QString> > iter(result.m_trans_result);
     while(iter.hasNext())
     {
         QPair<QString, QString> pair = iter.next();
@@ -77,6 +113,36 @@ void MainWindow::showResult(QVector<QPair<QString, QString> >vector)
     ui->label_statusPicture->hide();
     ui->label_translationStatus->hide();
 }
+
+void MainWindow::toggleStayOnTop()
+{
+    static bool onTop = true;
+    static QPoint pos = this->pos();
+    Qt::WindowFlags flags = Qt::WindowStaysOnTopHint;
+    if (onTop)
+        this->setWindowFlags(this->windowFlags() | flags);
+    else
+        this->setWindowFlags(this->windowFlags() & ~flags);
+    onTop = !onTop;
+    this->move(pos);
+    this->show();
+
+}
+
+void MainWindow::updateStyle()
+{
+    QString appDir = QApplication::applicationDirPath() + QDir::separator();
+    /* load style sheet. */
+    QFile file(appDir + "style/style.css");
+    if (file.open(QIODevice::ReadOnly))
+    {
+        QString style(file.readAll());
+//        qDebug() << style;
+        qApp->setStyleSheet(style);
+        file.close();
+    }
+}
+
 
 /*
 中文 	zh 	    英语 	en

@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     if (file.open(QIODevice::ReadOnly))
     {
         QString style(file.readAll());
-        qDebug() << style;
+//        qDebug() << style;
         a.setStyleSheet(style);
         file.close();
     }

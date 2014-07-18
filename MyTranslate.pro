@@ -15,11 +15,13 @@ CONFIG += c++11
 SOURCES += main.cpp\
         mainwindow.cpp \
     cbaidutranslater.cpp \
-    controls/qgiflabel.cpp
+    controls/qgiflabel.cpp \
+    entities/cbaidutranslateresult.cpp
 
 HEADERS  += mainwindow.h \
     cbaidutranslater.h \
-    controls/qgiflabel.h
+    controls/qgiflabel.h \
+    entities/cbaidutranslateresult.h
 
 FORMS    += mainwindow.ui
 
@@ -28,7 +30,8 @@ TRANSLATIONS += $$PWD/language/zh.ts
 OTHER_FILES += \
     .gitignore
 
-RESOURCES +=
+RESOURCES += \
+    res.qrc
 
 INCLUDEPATH += $$PWD $$PWD/controls
 

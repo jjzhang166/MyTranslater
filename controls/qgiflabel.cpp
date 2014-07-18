@@ -11,13 +11,11 @@ QGifLabel::QGifLabel(const QString &filename, QWidget *parent) :
     QLabel(parent), m_movie(new QMovie(this))
 {
     m_movie->setFileName(filename);
-    m_movie->setScaledSize(QSize(20, 20));
     this->setMovie(m_movie);
 }
 
 void QGifLabel::setFileName(const QString &filename)
 {
-    m_movie->setScaledSize(QSize(20, 20));
     m_movie->setFileName(filename);
 }
 

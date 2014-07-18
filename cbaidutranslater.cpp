@@ -2,6 +2,7 @@
 #include <QtNetwork>
 #include <QtCore>
 #include "cbaidutranslater.h"
+#include "entities/cbaidutranslateresult.h"
 
 
 CBaiduTranslater::CBaiduTranslater(QString API_Key, QString url, QObject *parent)
@@ -82,22 +83,8 @@ void CBaiduTranslater::translate(const QString &src, const QString from, const Q
     /* return data */
     connect(reply, &QNetworkReply::readyRead, [=]{
         QByteArray data = reply->readAll();
-        bool ok = false;
-        QVector<QPair<QString, QString> > vector = decodeJsonData(data, ok);
-        if (ok)
-        {
-            emit finished(vector);
-        }
-        else
-        {
-            QMap<QString, QString> map;
-            for (auto iter = vector.begin(); iter != vector.end(); ++iter)
-            {
-                QPair<QString, QString> pair = static_cast<QPair<QString, QString> >(*iter);
-                map.insert(pair.first, pair.second);
-            }
-            emit error(map);
-        }
+        CBaiduTranslateResult result = decodeJsonData(data);
+        emit finished(result);
         reply->close();
     });
 
@@ -142,40 +129,44 @@ void CBaiduTranslater::translate(const QString &src, const QString from, const Q
 if decode successfully return hash table containing <src, dst>
 else return hash table containing <error_msg, error_msg>
 */
-QVector<QPair<QString, QString> > CBaiduTranslater::decodeJsonData(const QByteArray &json, bool &ok)
+CBaiduTranslateResult CBaiduTranslater::decodeJsonData(const QByteArray &json)
 {
-    QVector<QPair<QString, QString> > vector;
+    CBaiduTranslateResult result;
     QJsonDocument jsonDoc = QJsonDocument::fromJson(json);
     QJsonObject jsonObj = jsonDoc.object();
     if (jsonObj.contains(tr("error_msg")))
     {
-        ok = false;
-        vector.append(qMakePair(QString("error_code"), jsonObj["error_code"].toString()));
-        vector.append(qMakePair(QString("error_msg"), jsonObj["error_msg"].toString()));
-        vector.append(qMakePair(QString("from"), jsonObj["from"].toString()));
-        vector.append(qMakePair(QString("to"), jsonObj["to"].toString()));
-        vector.append(qMakePair(QString("query"), jsonObj["query"].toString()));
+//        vector.append(qMakePair(QString("error_code"), jsonObj["error_code"].toString()));
+//        vector.append(qMakePair(QString("error_msg"), jsonObj["error_msg"].toString()));
+//        vector.append(qMakePair(QString("from"), jsonObj["from"].toString()));
+//        vector.append(qMakePair(QString("to"), jsonObj["to"].toString()));
+//        vector.append(qMakePair(QString("query"), jsonObj["query"].toString()));
+        result.m_error_code = static_cast<CBaiduTranslateResult::ErrorCode>(jsonObj["error_code"].toInt());
+        result.m_error_msg = jsonObj["error_msg"].toString();
+        result.m_from = jsonObj["from"].toString();
+        result.m_to = jsonObj["to"].toString();
+        result.m_query = jsonObj["query"].toString();
     }
     else if (jsonObj.contains(tr("trans_result")))
     {
-        ok = true;
-        vector.append(qMakePair(QString("from"), jsonObj["from"].toString()));
-        vector.append(qMakePair(QString("to"), jsonObj["to"].toString()));
+        result.m_from = jsonObj["from"].toString();
+        result.m_to = jsonObj["to"].toString();
+//        vector.append(qMakePair(QString("from"), jsonObj["from"].toString()));
+//        vector.append(qMakePair(QString("to"), jsonObj["to"].toString()));
         QJsonArray jsonArray = jsonObj["trans_result"].toArray();
         for (auto iter = jsonArray.constBegin(); iter != jsonArray.constEnd(); ++iter)
         {
             QJsonObject jsonObjTmp = static_cast<QJsonValue>(*iter).toObject();
             if (!jsonObjTmp.isEmpty())
-                vector.append(qMakePair(jsonObjTmp["src"].toString(), jsonObjTmp["dst"].toString()));
+                result.m_trans_result.append(qMakePair(jsonObjTmp["src"].toString(), jsonObjTmp["dst"].toString()));
         }
     }
     else
     {
         // unkonwn
-        ok = false;
     }
 
-    return vector;
+    return result;
 }
 
 
