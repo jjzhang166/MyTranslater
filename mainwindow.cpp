@@ -137,6 +137,7 @@ void MainWindow::updateStyle()
     if (file.open(QIODevice::ReadOnly))
     {
         QString style(file.readAll());
+        style.replace("$AppDir", appDir);
 //        qDebug() << style;
         qApp->setStyleSheet(style);
         file.close();

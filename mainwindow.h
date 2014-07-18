@@ -10,7 +10,6 @@ class CBaiduTranslater;
 class QComboBox;
 class QLabel;
 class QToolButton;
-class QMouseEvent;
 
 namespace Ui {
 class MainWindow;

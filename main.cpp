@@ -9,18 +9,19 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QString appDir = QApplication::applicationDirPath() + QDir::separator();
+    QString appDir = QApplication::applicationDirPath();
 
     /* load language file */
     QTranslator t;
-    if(t.load(appDir + "language/zh.qm"))
+    if(t.load(appDir + "/language/zh.qm"))
         a.installTranslator(&t);
 
     /* load style sheet. */
-    QFile file(appDir + "style/style.css");
+    QFile file(appDir + "/style/style.css");
     if (file.open(QIODevice::ReadOnly))
     {
         QString style(file.readAll());
+        style.replace("$AppDir", appDir);
 //        qDebug() << style;
         a.setStyleSheet(style);
         file.close();
