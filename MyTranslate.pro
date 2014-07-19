@@ -23,7 +23,9 @@ HEADERS  += mainwindow.h \
     controls/qgiflabel.h \
     entities/cbaidutranslateresult.h
 
-FORMS    += mainwindow.ui
+FORMS    += \
+    mainwindow.ui \
+    aboutdialog.ui
 
 TRANSLATIONS += $$PWD/language/zh.ts
 

@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>res/loading.gif</file>
+        <file>res/pin_done.png</file>
+        <file>res/about.html</file>
     </qresource>
 </RCC>

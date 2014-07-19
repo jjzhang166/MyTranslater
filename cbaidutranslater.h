@@ -13,9 +13,9 @@ class CBaiduTranslater: public QObject
 {
     Q_OBJECT
 public:
-    CBaiduTranslater(QString API_Key = "",
-                     QString url = "http://openapi.baidu.com/public/2.0/bmt/translate",
-                     QObject *parent = 0);
+    CBaiduTranslater(QObject *parent = 0,
+                     QString API_Key = "",
+                     QString url = "http://openapi.baidu.com/public/2.0/bmt/translate");
 
     QString API_Key() const;
     void setAPI_Key(const QString &API_Key);

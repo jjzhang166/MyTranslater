@@ -10,9 +10,11 @@ class CBaiduTranslater;
 class QComboBox;
 class QLabel;
 class QToolButton;
+class QDialog;
 
 namespace Ui {
 class MainWindow;
+class Dialog;
 }
 
 class MainWindow : public QMainWindow
@@ -27,18 +29,23 @@ private slots:
     void translate();
     void translate(const QString &srcText, const QString &from, const QString &to);
     void showResult(CBaiduTranslateResult result);
-    void toggleStayOnTop();
+    void togglePinWindow();
     void updateStyle();
 
 private:
     Ui::MainWindow *ui;
+    Ui::Dialog *ui2;
+
+    QDialog *m_aboutDialog;
     CBaiduTranslater *m_baiduTranslater;
     QString m_from, m_to;       // translate direction
     QLabel *m_statusInfo;
-    QToolButton *m_showTop;
+    QToolButton *m_pinWindow;
     QToolButton *m_updateStyle;
+    QToolButton *m_about;
 
     void initComboBox(QComboBox *comboBox);
+    void showAboutDialog();
 };
 
 #endif // MAINWINDOW_H

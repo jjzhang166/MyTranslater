@@ -5,7 +5,7 @@
 #include "entities/cbaidutranslateresult.h"
 
 
-CBaiduTranslater::CBaiduTranslater(QString API_Key, QString url, QObject *parent)
+CBaiduTranslater::CBaiduTranslater(QObject *parent, QString API_Key, QString url)
     :QObject(parent), m_url(url),
      m_API_Key(API_Key), m_from("auto"), m_to("auto"), m_q(""),
      m_networkAccessManager(new QNetworkAccessManager(this))

@@ -1,40 +1,56 @@
+#include <QDesktopWidget>
 #include <QtCore>
 #include <QComboBox>
 #include <QToolButton>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "ui_aboutdialog.h"
 #include "cbaidutranslater.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_baiduTranslater(new CBaiduTranslater),
-    m_from("auto"), m_to("auto")
+    ui2(new Ui::Dialog),
+    m_aboutDialog(nullptr),
+    m_baiduTranslater(new CBaiduTranslater(this)),
+    m_from("auto"),
+    m_to("auto"),
+    m_statusInfo(new QLabel(this)),
+    m_pinWindow(new QToolButton(this)),
+    m_updateStyle(new QToolButton(this)),
+    m_about(new QToolButton(this))
 {
     ui->setupUi(this);
 
     /* Stay on top tool button */
-    m_showTop = new QToolButton(this);
-    m_showTop->setToolTip(tr("stay on top"));
-    connect(m_showTop, &QToolButton::clicked, this, &MainWindow::toggleStayOnTop);
-    ui->statusBar->addWidget(m_showTop, 0);
+//    m_pinWindow = new QToolButton(this);
+    m_pinWindow->setObjectName(tr("pinWindow"));
+    m_pinWindow->setToolTip(tr("stay on top"));
+    ui->statusBar->addWidget(m_pinWindow, 0);
+    connect(m_pinWindow, &QToolButton::clicked, this, &MainWindow::togglePinWindow);
 
     /* Update style tool button */
-    m_updateStyle = new QToolButton(this);
+//    m_updateStyle = new QToolButton(this);
+    m_updateStyle->setObjectName(tr("updateStyle"));
     m_updateStyle->setToolTip(tr("update style"));
     ui->statusBar->addWidget(m_updateStyle, 0);
     connect(m_updateStyle, &QToolButton::clicked, this, &MainWindow::updateStyle);
 
     /* status display label */
-    m_statusInfo = new QLabel(this);
-    m_statusInfo->setText(tr("The first time query may be slow"));
-    ui->statusBar->addWidget(m_statusInfo, 0);
+//    m_statusInfo = new QLabel(this);
+    m_statusInfo->setAlignment(Qt::AlignRight);
+    ui->statusBar->addWidget(m_statusInfo, 1);
+
+    /* About button */
+//    m_about = new QToolButton(this);
+    m_about->setObjectName(tr("about"));
+    m_about->setToolTip(tr("about this program"));
+    ui->statusBar->insertWidget(2, m_about);
+    connect(m_about, &QToolButton::clicked, this, &MainWindow::showAboutDialog);
 
 
     /* initialize translation direction */
     initComboBox(ui->comboBox);
-
-    setWindowTitle(tr("MyTranslater"));
 
     // Set baidu translate seveice API key
     m_baiduTranslater->setAPI_Key("MMy04nuApNDEaIQGSV6XncBv");
@@ -44,11 +60,24 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_baiduTranslater, &CBaiduTranslater::finished, this, &MainWindow::showResult);
 
     /* initialize waiting label */
-//    ui->label_statusPicture->hide();
     ui->label_statusPicture->setFileName(":/res/loading.gif");
     ui->label_statusPicture->hide();
     ui->label_translationStatus->setText(tr("Translating..."));
     ui->label_translationStatus->hide();
+
+    /* Set MainWindow title */
+    setWindowTitle(tr("MyTranslater"));
+    /* Show in screen center */
+    QSize screenSize = qApp->desktop()->availableGeometry().size();
+    QSize mainWindowSize = size();
+    QPoint destPos;
+    destPos.setX((screenSize.width() - mainWindowSize.width()) / 2);
+    destPos.setY((screenSize.height() - mainWindowSize.height()) / 2);
+    this->move(destPos);
+
+    /* contriant window size */
+    setMaximumSize(size());
+    setMinimumSize(size());
 }
 
 MainWindow::~MainWindow()
@@ -114,16 +143,26 @@ void MainWindow::showResult(CBaiduTranslateResult result)
     ui->label_translationStatus->hide();
 }
 
-void MainWindow::toggleStayOnTop()
+void MainWindow::togglePinWindow()
 {
-    static bool onTop = true;
+    static bool pin = false;
     static QPoint pos = this->pos();
+
+    // toggle
+    pin = !pin;
+
     Qt::WindowFlags flags = Qt::WindowStaysOnTopHint;
-    if (onTop)
+    if (pin)
+    {
         this->setWindowFlags(this->windowFlags() | flags);
+        m_pinWindow->setIcon(QIcon(":/res/pin_done.png"));
+    }
     else
+    {
         this->setWindowFlags(this->windowFlags() & ~flags);
-    onTop = !onTop;
+        m_pinWindow->setIcon(QIcon());
+    }
+
     this->move(pos);
     this->show();
 
@@ -173,4 +212,34 @@ void MainWindow::initComboBox(QComboBox *comboBox)
         m_from = strList[0];
         m_to = strList[1];
     });
+}
+
+void MainWindow::showAboutDialog()
+{
+    /* only exist less than one dialog in any time */
+    if (m_aboutDialog == nullptr)
+    {
+        m_aboutDialog = new QDialog(this);
+        ui2->setupUi(m_aboutDialog);
+        m_aboutDialog->setWindowTitle(tr("About"));
+
+        /* set fixed size*/
+        m_aboutDialog->setMaximumSize(m_aboutDialog->size());
+        m_aboutDialog->setMinimumSize(m_aboutDialog->size());
+
+        /* read in content */
+        QFile file(":/res/about.html");
+        if (file.open(QIODevice::ReadOnly))
+        {
+            QString html = file.readAll();
+            ui2->textBrowser->setHtml(html);
+            file.close();
+        }
+
+        connect(m_aboutDialog, &QDialog::finished, [=]{
+            m_aboutDialog = nullptr;
+        });
+    }
+
+    m_aboutDialog->show();
 }
