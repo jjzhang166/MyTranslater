@@ -35,6 +35,10 @@ OTHER_FILES += \
 RESOURCES += \
     res.qrc
 
+win32:{
+    RC_ICONS = $$PWD/res/windowIcon.ico
+}
+
 INCLUDEPATH += $$PWD $$PWD/controls
 
 OBJECTS_DIR += $$OUT_PWD/tmp

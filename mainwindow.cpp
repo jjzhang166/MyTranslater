@@ -67,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* Set MainWindow title */
     setWindowTitle(tr("MyTranslater"));
+    setWindowIcon(QIcon(":/res/windowIcon.ico"));
     /* Show in screen center */
     QSize screenSize = qApp->desktop()->availableGeometry().size();
     QSize mainWindowSize = size();
