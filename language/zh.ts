@@ -30,6 +30,11 @@
         <translation></translation>
     </message>
     <message>
+        <location filename="../mainwindow.ui" line="122"/>
+        <source>Clear</source>
+        <translation>清空</translation>
+    </message>
+    <message>
         <source>Chinese</source>
         <translation type="vanished">中文</translation>
     </message>
