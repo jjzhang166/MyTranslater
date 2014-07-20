@@ -1,4 +1,4 @@
 #Install:
 
-#Linux:
+###Linux:
     sudo python3 ./install.py
