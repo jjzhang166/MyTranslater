@@ -109,7 +109,7 @@ QPlainTextEdit:hover{
 }
 
 /* QMainWindow */
-QMainWindow{
+QMainWindow, QDialog{
     background-image:url($AppDir/style/images/aio.png);
     background-position:center;
 }

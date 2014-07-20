@@ -243,3 +243,9 @@ void MainWindow::showAboutDialog()
 
     m_aboutDialog->show();
 }
+
+void MainWindow::on_btnClear_clicked()
+{
+    ui->plainTextEdit_src->clear();
+    ui->plainTextEdit_dst->clear();
+}

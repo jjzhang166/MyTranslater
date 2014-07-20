@@ -32,6 +32,8 @@ private slots:
     void togglePinWindow();
     void updateStyle();
 
+    void on_btnClear_clicked();
+
 private:
     Ui::MainWindow *ui;
     Ui::Dialog *ui2;
