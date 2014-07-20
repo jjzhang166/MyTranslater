@@ -13,4 +13,4 @@
 [1]:http://developer.baidu.com/ms/translate "http://developer.baidu.com/ms/translate"
 [2]:http://kc.cc/Y3xd "MyTranslater for Windows"
 [3]:http://git.oschina.net/xiaohui_hubei/MyTranslater/attach_files/download?i=3522&u=http%3A%2F%2Ffiles.git.oschina.net%2Fgroup1%2FM00%2F00%2F24%2FcHwGbFPLxqaADVQrAADFH0u0I4A694.png%3Ftoken%3D940594df9ae1ef82a5c8f5c4fa3e9cf1%26ts%3D1405865500%26filename%3DMyTranslater1.png "程序界面截图"
-[4]:http://kc.cc/Y3AP 
+[4]:./res/pin_done.png
