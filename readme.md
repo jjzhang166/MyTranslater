@@ -10,5 +10,5 @@
 
 
 [1]:http://developer.baidu.com/ms/translate "http://developer.baidu.com/ms/translate"
-[2]:http://kc.cc/Y3xd "MyTranslater for Windows"
+[2]:http://kc.cc/Y9Eq "MyTranslater for Windows"
 [3]:./MyTranslater.png "程序界面截图"
